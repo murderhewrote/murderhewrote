@@ -117,11 +117,13 @@
     opacity: 1;
     transform: translateY(0);
   }
-  .platforms a:nth-child(1) { transition-delay: 0.1s; }
-  .platforms a:nth-child(2) { transition-delay: 0.25s; }
-  .platforms a:nth-child(3) { transition-delay: 0.4s; }
-  .platforms a:nth-child(4) { transition-delay: 0.55s; }
-  .platforms a:nth-child(5) { transition-delay: 0.7s; }
+/* Staggered animation for new logo order */
+.platforms a:nth-child(1) { transition-delay: 0.1s; }  /* Bandcamp */
+.platforms a:nth-child(2) { transition-delay: 0.25s; } /* Spotify */
+.platforms a:nth-child(3) { transition-delay: 0.4s; }  /* Instagram */
+.platforms a:nth-child(4) { transition-delay: 0.55s; } /* SoundCloud */
+.platforms a:nth-child(5) { transition-delay: 0.7s; }  /* Apple Music */
+
 
   .platforms a img {
     height: 72px; /* slightly larger logos */
