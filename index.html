@@ -1,200 +1,164 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Murder He Wrote</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Murder He Wrote — Producer / DJ / Broadcaster">
+<meta charset="UTF-8">
+<title>Murder He Wrote</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Murder He Wrote — Producer / DJ / Broadcaster">
 
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
-  <style>
-    /* --- Base styles --- */
-    body {
-      margin: 0;
-      font-family: 'Inter', sans-serif;
-      color: #f2f2f2;
-      line-height: 1.6;
-      overflow-x: hidden;
-      background: linear-gradient(to bottom, #0a0a0a, #111111);
-    }
+<style>
+  /* --- Base styles --- */
+  body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+    color: #f2f2f2;
+    height: 100%;
+    overflow-x: hidden;
+    background: linear-gradient(-45deg, #0a0a0a, #111111, #0a0a0a, #111111);
+    background-size: 400% 400%;
+    animation: gradientMove 20s ease infinite;
+  }
 
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
 
-    /* --- Header / Hero --- */
-    header {
-      min-height: 50vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 1rem;
-    }
+  /* --- Background noise / vignette --- */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  }
+  body::after {
+    content:"";
+    position: fixed;
+    inset:0;
+    pointer-events:none;
+    background: radial-gradient(ellipse at center, rgba(0,0,0,0) 35%, rgba(0,0,0,0.55) 100%);
+  }
 
-    header img {
-      filter: invert(100%) brightness(1.1) contrast(1.2);
-      max-width: 500px;       /* doubled from 250px */
-      width: 80%;             /* increase relative width */
-      opacity: 0;
-      animation: fadeIn 1s ease-out forwards, pulse 1.5s ease-in-out infinite alternate;
-    }
+  @keyframes gradientMove {
+    0% {background-position:0% 50%;}
+    50% {background-position:100% 50%;}
+    100% {background-position:0% 50%;}
+  }
 
-    header p {
-      margin-top: 0.5rem;
-      color: #aaa;
-      font-weight: 400;
-      opacity: 0;
-      animation: textIn 1s ease-out 0.5s forwards;
-    }
+  /* --- Hero / logo --- */
+  header {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+  }
 
-    /* --- Sections --- */
-    section {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 2rem 1.5rem;
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-      position: relative;
-      z-index: 1;
-    }
+  header img {
+    filter: invert(100%) brightness(1.1) contrast(1.2);
+    max-width: 500px;
+    width: 80%;
+    opacity: 0;
+    transform: scale(0.95);
+    animation: logoFadeIn 1s forwards, logoPulse 1.5s ease-in-out infinite alternate 1s;
+  }
 
-    section.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
+  header p {
+    margin-top: 1rem;
+    font-weight: 400;
+    color: #aaa;
+    opacity: 0;
+    animation: textFadeIn 1s forwards 1s;
+  }
 
-    section.listen::before,
-    section.bio::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      background: linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0) 50%, rgba(0,0,0,0.15) 100%);
-      z-index: -1;
-    }
+  @keyframes logoFadeIn {
+    to {opacity:1; transform: scale(1);}
+  }
+  @keyframes logoPulse {
+    0% {transform: scale(1);}
+    50% {transform: scale(1.03);}
+    100% {transform: scale(1);}
+  }
+  @keyframes textFadeIn {
+    to {opacity:1;}
+  }
 
-    h2 {
-      font-size: 1rem;
-      text-transform: uppercase;
-      letter-spacing: 0.2em;
-      margin-bottom: 1.5rem;
-      text-align: center;
-      color: #bbb;
-    }
+  /* --- Platforms cards --- */
+  .platforms {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 3rem;
+  }
 
-    .platforms {
-      display: flex;
-      gap: 2rem;
-      justify-content: center;
-      align-items: center;
-      flex-wrap: wrap;
-    }
+  .platforms a {
+    display: block;
+    background: rgba(255,255,255,0.05);
+    border-radius: 12px;
+    padding: 1rem 1.5rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    opacity: 0;
+    transform: translateY(20px);
+  }
 
-    .platforms img {
-      height: 42px;
-      opacity: 0;
-      transform: translateY(6px);
-      transition: opacity 0.6s ease-out, transform 0.6s ease-out, box-shadow 0.3s ease;
-    }
+  .platforms a img {
+    height: 42px;
+    display: block;
+  }
 
-    .platforms.visible img {
-      opacity: 0.75;
-      transform: translateY(0);
-    }
+  .platforms a:hover {
+    transform: translateY(-6px) scale(1.05);
+    box-shadow: 0 8px 20px rgba(255,255,255,0.1);
+  }
 
-    .platforms.visible img:nth-child(1){ transition-delay: 0.1s; }
-    .platforms.visible img:nth-child(2){ transition-delay: 0.2s; }
-    .platforms.visible img:nth-child(3){ transition-delay: 0.3s; }
-    .platforms.visible img:nth-child(4){ transition-delay: 0.4s; }
+  .platforms.visible a {
+    opacity:1;
+    transform: translateY(0);
+  }
 
-    /* Subtle hover glow */
-    .platforms img:hover {
-      opacity: 1;
-      transform: translateY(-3px) scale(1.05);
-      box-shadow: 0 4px 12px rgba(255,255,255,0.08);
-    }
+  /* --- Bio section --- */
+  section.bio {
+    max-width: 700px;
+    margin: 4rem auto;
+    text-align: center;
+    line-height: 1.7;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.8s ease-out;
+  }
 
-    .bio {
-      max-width: 600px;
-      margin: 1rem auto 0 auto;
-      text-align: center;
-      line-height: 1.7;
-    }
+  section.bio.visible {
+    opacity:1;
+    transform: translateY(0);
+  }
 
-    footer {
-      text-align: center;
-      padding: 2.5rem 1rem;
-      font-size: 0.85rem;
-      color: #888;
-    }
+  footer {
+    text-align: center;
+    padding: 2rem 1rem;
+    color: #888;
+  }
 
-    /* --- Animations --- */
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.02); }
-      100% { transform: scale(1); }
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px);}
-      to { opacity: 1; transform: translateY(0);}
-    }
-
-    @keyframes textIn {
-      from { opacity: 0; letter-spacing: 0.2em; }
-      to { opacity: 1; letter-spacing: 0.08em; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      * { animation: none !important; transition: none !important; }
-    }
-
-    /* --- Background grain / noise --- */
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 9999;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
-    }
-
-    /* --- Enhanced vignette --- */
-    body::after {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 10000;
-      background: radial-gradient(ellipse at center, rgba(0,0,0,0) 35%, rgba(0,0,0,0.55) 100%);
-    }
-
-    /* --- Responsive tweak for very large screens --- */
-    @media (min-width: 1200px) {
-      header img {
-        max-width: 600px;
-      }
-    }
-  </style>
+  @media (prefers-reduced-motion: reduce) {
+    * {animation:none !important; transition:none !important;}
+  }
+</style>
 </head>
-
 <body>
 
   <!-- HERO -->
   <header>
-    <div>
-      <img src="murderhewrote.png" alt="Murder He Wrote logo">
-      <p>Producer / DJ / Broadcaster</p>
-    </div>
-  </header>
+    <img src="murderhewrote.png" alt="Murder He Wrote logo">
+    <p>Producer / DJ / Broadcaster</p>
 
-  <!-- LISTEN -->
-  <section class="listen">
-    <h2>Listen</h2>
+    <!-- Platform links -->
     <div class="platforms">
       <a href="https://soundcloud.com/murder-he-wrote" target="_blank" aria-label="SoundCloud">
         <img src="soundcloud.png" alt="SoundCloud">
@@ -209,27 +173,23 @@
         <img src="applemusic.png" alt="Apple Music">
       </a>
     </div>
-  </section>
+  </header>
 
   <!-- BIO -->
   <section class="bio">
-    <h2>Bio</h2>
-    <div class="bio">
-      <p>
-        Blending Garage, UK Funky, and Broken Beat, Murder He Wrote’s playful productions and edits have become a mainstay of clubs worldwide. Breaking out via Roska Kicks & Snares, his tracks have gained support from tastemakers including Ben UFO, Jyoty, Fred Again, Jamz Supernova, and Mary Anne Hobbs.
-      </p>
-      <p>
-        Working across 3 decks, his low-end focused DJ sets have featured on BBC Radio 1, Boiler Room, NTS, Rinse FM, and clubs/festivals around the world including Fabric, Ministry Of Sound, and Outlook.
-      </p>
-      <p>
-        Recent highlights include releases on DJ Zinc’s Bingo Beats and Jamz Supernova’s Future Bounce, collaborations with Roska, official remixes for Afro B and T-Pain, and multiple Spotify New Music Friday features.
-      </p>
-    </div>
+    <p>
+      Blending Garage, UK Funky, and Broken Beat, Murder He Wrote’s playful productions and edits have become a mainstay of clubs worldwide. Breaking out via Roska Kicks & Snares, his tracks have gained support from tastemakers including Ben UFO, Jyoty, Fred Again, Jamz Supernova, and Mary Anne Hobbs.
+    </p>
+    <p>
+      Working across 3 decks, his low-end focused DJ sets have featured on BBC Radio 1, Boiler Room, NTS, Rinse FM, and clubs/festivals around the world including Fabric, Ministry Of Sound, and Outlook.
+    </p>
+    <p>
+      Recent highlights include releases on DJ Zinc’s Bingo Beats and Jamz Supernova’s Future Bounce, collaborations with Roska, official remixes for Afro B and T-Pain, and multiple Spotify New Music Friday features.
+    </p>
   </section>
 
   <!-- CONTACT -->
   <section>
-    <h2>Contact</h2>
     <p style="text-align:center;">
       <a href="mailto:team@rhythmathletic.com">team@rhythmathletic.com</a>
     </p>
@@ -240,29 +200,23 @@
   </footer>
 
   <script>
+    // Set current year
     document.getElementById("year").textContent = new Date().getFullYear();
 
-    // Scroll animations for sections
-    const sections = document.querySelectorAll('section');
+    // Animate platforms on scroll
+    const platforms = document.querySelector('.platforms');
+    const bio = document.querySelector('.bio');
+
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if(entry.isIntersecting){
           entry.target.classList.add('visible');
         }
       });
-    }, { threshold: 0.2 });
-    sections.forEach(section => observer.observe(section));
+    }, {threshold:0.3});
 
-    // Logos staggered fade-in
-    const logos = document.querySelector('.platforms');
-    const logoObserver = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if(entry.isIntersecting){
-          entry.target.classList.add('visible');
-        }
-      });
-    }, { threshold: 0.3 });
-    logoObserver.observe(logos);
+    observer.observe(platforms);
+    observer.observe(bio);
   </script>
 
 </body>
