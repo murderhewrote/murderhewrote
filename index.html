@@ -36,8 +36,8 @@
 
     header img {
       filter: invert(100%) brightness(1.1) contrast(1.2);
-      max-width: 250px;
-      width: 60%;
+      max-width: 500px;       /* doubled from 250px */
+      width: 80%;             /* increase relative width */
       opacity: 0;
       animation: fadeIn 1s ease-out forwards, pulse 1.5s ease-in-out infinite alternate;
     }
@@ -171,6 +171,13 @@
       pointer-events: none;
       z-index: 10000;
       background: radial-gradient(ellipse at center, rgba(0,0,0,0) 35%, rgba(0,0,0,0.55) 100%);
+    }
+
+    /* --- Responsive tweak for very large screens --- */
+    @media (min-width: 1200px) {
+      header img {
+        max-width: 600px;
+      }
     }
   </style>
 </head>
