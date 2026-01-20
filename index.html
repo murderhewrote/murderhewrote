@@ -16,7 +16,6 @@
       color: #f2f2f2;
       line-height: 1.6;
       overflow-x: hidden;
-      /* Subtle dark vertical gradient background */
       background: linear-gradient(to bottom, #0a0a0a, #111111);
     }
 
@@ -35,21 +34,20 @@
       padding: 1rem;
     }
 
-    h1 {
-      font-size: clamp(2.5rem, 6vw, 4rem);
-      letter-spacing: 0.08em;
-      margin: 0;
+    header img {
+      filter: invert(100%) brightness(1.1) contrast(1.2);
+      max-width: 250px;
+      width: 60%;
       opacity: 0;
-      /* Pulse + fade-in animation */
-      animation: pulse 1s ease-out 0.15s 1 forwards, textIn 1s ease-out 0.15s forwards;
-      /* Subtle text shadow for depth */
-      text-shadow: 0 2px 6px rgba(0,0,0,0.7);
+      animation: fadeIn 1s ease-out forwards, pulse 1.5s ease-in-out infinite alternate;
     }
 
     header p {
       margin-top: 0.5rem;
       color: #aaa;
       font-weight: 400;
+      opacity: 0;
+      animation: textIn 1s ease-out 0.5s forwards;
     }
 
     /* --- Sections --- */
@@ -141,6 +139,11 @@
       100% { transform: scale(1); }
     }
 
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+
     @keyframes textIn {
       from { opacity: 0; letter-spacing: 0.2em; }
       to { opacity: 1; letter-spacing: 0.08em; }
@@ -177,7 +180,7 @@
   <!-- HERO -->
   <header>
     <div>
-      <h1>MURDER HE WROTE</h1>
+      <img src="murderhewrote.png" alt="Murder He Wrote logo">
       <p>Producer / DJ / Broadcaster</p>
     </div>
   </header>
@@ -257,4 +260,3 @@
 
 </body>
 </html>
-
