@@ -5,14 +5,13 @@
   <title>Murder He Wrote</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <meta name="description" content="Murder He Wrote — DJ / Producer">
+  <meta name="description" content="Murder He Wrote — DJ / Producer / Broadcaster">
 
   <!-- Font -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
   <style>
     /* --- Base styles --- */
-
     body {
       margin: 0;
       font-family: 'Inter', sans-serif;
@@ -28,7 +27,7 @@
     }
 
     header {
-      min-height: 80vh;
+      min-height: 60vh; /* reduced gap */
       display: flex;
       align-items: center;
       justify-content: center;
@@ -52,12 +51,13 @@
     header p {
       margin-top: 0.5rem;
       color: #aaa;
+      font-weight: 400;
     }
 
     section {
       max-width: 900px;
       margin: 0 auto;
-      padding: 4rem 1.5rem;
+      padding: 3rem 1.5rem; /* reduced padding for tighter spacing */
       opacity: 0;
       transform: translateY(20px);
       animation: riseIn 0.8s ease-out forwards;
@@ -110,45 +110,26 @@
     }
 
     /* --- Animations --- */
-
     @keyframes fadeIn {
       from { opacity: 0; }
       to { opacity: 1; }
     }
 
     @keyframes riseIn {
-      from {
-        opacity: 0;
-        transform: translateY(24px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     @keyframes textIn {
-      from {
-        opacity: 0;
-        letter-spacing: 0.2em;
-      }
-      to {
-        opacity: 1;
-        letter-spacing: 0.08em;
-      }
+      from { opacity: 0; letter-spacing: 0.2em; }
+      to { opacity: 1; letter-spacing: 0.08em; }
     }
 
-    /* --- Respect reduced motion --- */
-
     @media (prefers-reduced-motion: reduce) {
-      * {
-        animation: none !important;
-        transition: none !important;
-      }
+      * { animation: none !important; transition: none !important; }
     }
 
     /* --- Background grain / noise --- */
-
     body::before {
       content: "";
       position: fixed;
@@ -159,18 +140,13 @@
     }
 
     /* --- Subtle vignette --- */
-
     body::after {
       content: "";
       position: fixed;
       inset: 0;
       pointer-events: none;
       z-index: 10000;
-      background: radial-gradient(
-        ellipse at center,
-        rgba(0,0,0,0) 55%,
-        rgba(0,0,0,0.35) 100%
-      );
+      background: radial-gradient(ellipse at center, rgba(0,0,0,0) 55%, rgba(0,0,0,0.35) 100%);
     }
 
   </style>
@@ -182,14 +158,13 @@
   <header>
     <div>
       <h1>MURDER HE WROTE</h1>
-      <p>DJ / Producer</p>
+      <p>DJ / Producer / Broadcaster</p>
     </div>
   </header>
 
   <!-- LISTEN -->
   <section>
     <h2>Listen</h2>
-
     <div class="platforms">
       <a href="https://soundcloud.com/murder-he-wrote" target="_blank" aria-label="SoundCloud">
         <img src="soundcloud.png" alt="SoundCloud">
@@ -214,11 +189,13 @@
     <h2>Bio</h2>
     <div class="bio">
       <p>
-        Murder He Wrote is a DJ and producer working across dark, forward-moving
-        club music and underground sounds.
+        Blending Garage, UK Funky, and Broken Beat, Murder He Wrote’s playful productions and edits have become a mainstay of clubs worldwide. Breaking out via Roska Kicks & Snares, his tracks have gained support from tastemakers including Ben UFO, Jyoty, Fred Again, Jamz Supernova, and Mary Anne Hobbs.
       </p>
       <p>
-        Available for bookings and collaborations.
+        Working across 3 decks, his low-end focused DJ sets have featured on BBC Radio 1, Boiler Room, NTS, Rinse FM, and clubs/festivals around the world including Fabric, Ministry Of Sound, and Outlook.
+      </p>
+      <p>
+        Recent highlights include releases on DJ Zinc’s Bingo Beats and Jamz Supernova’s Future Bounce, collaborations with Roska, official remixes for Afro B and T-Pain, and multiple Spotify New Music Friday features.
       </p>
     </div>
   </section>
@@ -227,9 +204,7 @@
   <section>
     <h2>Contact</h2>
     <p style="text-align:center;">
-      <a href="mailto:booking@murderhewrote.co.uk">
-        booking@murderhewrote.co.uk
-      </a>
+      <a href="mailto:booking@murderhewrote.co.uk">booking@murderhewrote.co.uk</a>
     </p>
   </section>
 
@@ -243,5 +218,4 @@
 
 </body>
 </html>
-
 
