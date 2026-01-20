@@ -107,22 +107,24 @@
   .platforms a {
     display: block;
     padding: 0.5rem;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
     opacity: 0;
     transform: translateY(20px);
   }
 
   .platforms a img {
-    height: 60px; /* 20% larger than before */
-    width: auto;  /* maintain aspect ratio */
+    height: 60px;
+    width: auto;
     display: block;
     filter: drop-shadow(0 2px 6px rgba(255,255,255,0.3));
-    transition: transform 0.3s ease, filter 0.3s ease;
+    transition: transform 0.4s ease, filter 0.4s ease, box-shadow 0.4s ease;
   }
 
+  /* --- Designed hover animation --- */
   .platforms a:hover img {
-    transform: scale(1.1);
-    filter: drop-shadow(0 4px 12px rgba(255,255,255,0.5));
+    transform: scale(1.15) rotate(-2deg);
+    filter: drop-shadow(0 6px 18px rgba(255,255,255,0.5));
+    box-shadow: 0 0 20px rgba(255,255,255,0.15);
   }
 
   .platforms.visible a { opacity:1; transform: translateY(0); }
@@ -168,6 +170,9 @@
     <a href="https://music.apple.com/gb/artist/murder-he-wrote/545837724" target="_blank" aria-label="Apple Music">
       <img src="applemusic.png" alt="Apple Music">
     </a>
+    <a href="https://www.instagram.com/your_instagram/" target="_blank" aria-label="Instagram">
+      <img src="instagram.png" alt="Instagram">
+    </a>
   </div>
 </header>
 
@@ -207,17 +212,18 @@ const observer = new IntersectionObserver(entries => {
 observer.observe(platforms);
 observer.observe(bio);
 
-// --- Particle animation ---
+// --- Particle animation with subtle glow/trail + parallax ---
 const canvas = document.getElementById('particleCanvas');
 const ctx = canvas.getContext('2d');
 let particlesArray;
+let mouseX = 0;
+let mouseY = 0;
 
 function initParticles() {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
   particlesArray = [];
-  const numParticles = Math.floor((canvas.width * canvas.height) / 8000);
-
+  const numParticles = Math.floor((canvas.width * canvas.height) / 7000);
   for (let i = 0; i < numParticles; i++) {
     particlesArray.push({
       x: Math.random()*canvas.width,
@@ -225,19 +231,19 @@ function initParticles() {
       size: Math.random()*2 + 1,
       speedX: (Math.random()-0.5)*0.3,
       speedY: (Math.random()-0.5)*0.3,
-      baseX: 0, // for mouse parallax
-      baseY: 0,
       opacity: Math.random()*0.3 + 0.1
     });
   }
 }
 
-function animateParticles(mouseX=0, mouseY=0) {
+function animateParticles() {
   ctx.clearRect(0,0,canvas.width,canvas.height);
   particlesArray.forEach(p=>{
-    const parallaxX = -mouseX * 0.01; // subtle opposite direction
+    const parallaxX = -mouseX * 0.01;
     const parallaxY = -mouseY * 0.01;
-    ctx.fillStyle=`rgba(255,255,255,${p.opacity})`;
+    ctx.fillStyle = `rgba(255,255,255,${p.opacity})`;
+    ctx.shadowColor = "rgba(255,255,255,0.3)";
+    ctx.shadowBlur = 4;
     ctx.beginPath();
     ctx.arc(p.x + parallaxX, p.y + parallaxY, p.size, 0, Math.PI*2);
     ctx.fill();
@@ -248,24 +254,22 @@ function animateParticles(mouseX=0, mouseY=0) {
     if(p.y<0)p.y=canvas.height;
     if(p.y>canvas.height)p.y=0;
   });
-  requestAnimationFrame(()=>animateParticles(mouseX, mouseY));
+  requestAnimationFrame(animateParticles);
 }
 
-let mouseX = 0;
-let mouseY = 0;
 document.addEventListener('mousemove', e => {
   mouseX = e.clientX - window.innerWidth/2;
   mouseY = e.clientY - window.innerHeight/2;
-  // Logo subtle parallax
+  // Hero logo parallax
   const heroLogo = document.getElementById('heroLogo');
   heroLogo.style.transform = `translate(${mouseX/100}px, ${mouseY/100}px) scale(1.03)`;
 });
 
-window.addEventListener('resize',()=>{initParticles();});
+window.addEventListener('resize', ()=>{initParticles();});
 initParticles();
-animateParticles(mouseX, mouseY);
-
+animateParticles();
 </script>
 
 </body>
 </html>
+
