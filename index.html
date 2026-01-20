@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>Murder He Wrote</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Murder He Wrote — DJ / Producer / Broadcaster">
+  <meta name="description" content="Murder He Wrote — Producer / DJ / Broadcaster">
 
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
@@ -16,7 +16,7 @@
       background: #0a0a0a;
       color: #f2f2f2;
       line-height: 1.6;
-      animation: fadeIn 0.8s ease-out forwards;
+      overflow-x: hidden;
     }
 
     a {
@@ -26,16 +26,12 @@
 
     /* --- Header / Hero --- */
     header {
-      min-height: 55vh; /* slightly smaller gap */
+      min-height: 50vh; /* tight gap */
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 1.5rem;
-      opacity: 0;
-      transform: translateY(20px);
-      animation: riseIn 0.8s ease-out forwards;
-      animation-delay: 0.1s;
+      padding: 1rem;
     }
 
     h1 {
@@ -43,8 +39,7 @@
       letter-spacing: 0.08em;
       margin: 0;
       opacity: 0;
-      animation: textIn 1s ease-out forwards;
-      animation-delay: 0.15s;
+      animation: pulse 1s ease-out 0.15s 1 forwards, textIn 1s ease-out 0.15s forwards;
     }
 
     header p {
@@ -57,15 +52,28 @@
     section {
       max-width: 900px;
       margin: 0 auto;
-      padding: 2rem 1.5rem; /* tighter spacing */
+      padding: 2rem 1.5rem;
       opacity: 0;
       transform: translateY(20px);
-      animation: riseIn 0.8s ease-out forwards;
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+      position: relative;
+      z-index: 1;
     }
 
-    section:nth-of-type(1) { animation-delay: 0.25s; }
-    section:nth-of-type(2) { animation-delay: 0.4s; }
-    section:nth-of-type(3) { animation-delay: 0.55s; }
+    section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    section.listen::before,
+    section.bio::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0) 50%, rgba(0,0,0,0.15) 100%);
+      z-index: -1;
+    }
 
     h2 {
       font-size: 1rem;
@@ -86,9 +94,20 @@
 
     .platforms img {
       height: 42px;
-      opacity: 0.75;
-      transition: opacity 0.25s ease, transform 0.25s ease;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
     }
+
+    .platforms.visible img {
+      opacity: 0.75;
+      transform: translateY(0);
+    }
+
+    .platforms.visible img:nth-child(1){ transition-delay: 0.1s; }
+    .platforms.visible img:nth-child(2){ transition-delay: 0.2s; }
+    .platforms.visible img:nth-child(3){ transition-delay: 0.3s; }
+    .platforms.visible img:nth-child(4){ transition-delay: 0.4s; }
 
     .platforms img:hover {
       opacity: 1;
@@ -104,20 +123,16 @@
 
     footer {
       text-align: center;
-      padding: 2.5rem 1rem; /* slightly bigger padding */
+      padding: 2.5rem 1rem;
       font-size: 0.85rem;
       color: #888;
     }
 
     /* --- Animations --- */
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    @keyframes riseIn {
-      from { opacity: 0; transform: translateY(24px); }
-      to { opacity: 1; transform: translateY(0); }
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.02); }
+      100% { transform: scale(1); }
     }
 
     @keyframes textIn {
@@ -146,7 +161,7 @@
       inset: 0;
       pointer-events: none;
       z-index: 10000;
-      background: radial-gradient(ellipse at center, rgba(0,0,0,0) 40%, rgba(0,0,0,0.5) 100%);
+      background: radial-gradient(ellipse at center, rgba(0,0,0,0) 35%, rgba(0,0,0,0.55) 100%);
     }
   </style>
 </head>
@@ -157,26 +172,23 @@
   <header>
     <div>
       <h1>MURDER HE WROTE</h1>
-      <p>DJ / Producer / Broadcaster</p>
+      <p>Producer / DJ / Broadcaster</p>
     </div>
   </header>
 
   <!-- LISTEN -->
-  <section>
+  <section class="listen">
     <h2>Listen</h2>
     <div class="platforms">
       <a href="https://soundcloud.com/murder-he-wrote" target="_blank" aria-label="SoundCloud">
         <img src="soundcloud.png" alt="SoundCloud">
       </a>
-
       <a href="https://murderhewrote.bandcamp.com/" target="_blank" aria-label="Bandcamp">
         <img src="bandcamp.png" alt="Bandcamp">
       </a>
-
       <a href="https://open.spotify.com/artist/4n11sJzNp7JjBQw9sDze9Z" target="_blank" aria-label="Spotify">
         <img src="spotify.png" alt="Spotify">
       </a>
-
       <a href="https://music.apple.com/gb/artist/murder-he-wrote/545837724" target="_blank" aria-label="Apple Music">
         <img src="applemusic.png" alt="Apple Music">
       </a>
@@ -184,7 +196,7 @@
   </section>
 
   <!-- BIO -->
-  <section>
+  <section class="bio">
     <h2>Bio</h2>
     <div class="bio">
       <p>
@@ -203,7 +215,7 @@
   <section>
     <h2>Contact</h2>
     <p style="text-align:center;">
-      <a href="mailto:booking@murderhewrote.co.uk">booking@murderhewrote.co.uk</a>
+      <a href="mailto:team@rhythmathletic.com">team@rhythmathletic.com</a>
     </p>
   </section>
 
@@ -213,6 +225,28 @@
 
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Scroll animations
+    const sections = document.querySelectorAll('section');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.2 });
+    sections.forEach(section => observer.observe(section));
+
+    // Logos staggered fade-in
+    const logos = document.querySelector('.platforms');
+    const logoObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.3 });
+    logoObserver.observe(logos);
   </script>
 
 </body>
