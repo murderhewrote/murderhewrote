@@ -56,6 +56,7 @@
     text-align: center;
     position: relative;
     z-index: 2;
+    overflow: hidden;
   }
 
   header img {
@@ -65,10 +66,12 @@
     opacity: 0;
     transform: scale(0.95);
     animation: logoFadeIn 1s forwards, logoPulse 1.5s ease-in-out infinite alternate 1s;
+    position: relative;
+    z-index: 2;
   }
 
   header p {
-    margin-top: 1rem;
+    margin-top: 0.5rem;
     font-weight: 400;
     color: #aaa;
     opacity: 0;
@@ -93,10 +96,12 @@
   /* --- Platforms cards / logos --- */
   .platforms {
     display: flex;
-    gap: 2.5rem;
+    gap: 3rem;
     justify-content: center;
     flex-wrap: wrap;
-    margin-top: 3rem;
+    margin-top: 2rem;
+    z-index: 2;
+    position: relative;
   }
 
   .platforms a {
@@ -108,9 +113,9 @@
   }
 
   .platforms a img {
-    height: 50px; /* slightly larger */
+    height: 60px; /* 20% larger than before */
+    width: auto;  /* maintain aspect ratio */
     display: block;
-    /* keep original colors, add soft glow */
     filter: drop-shadow(0 2px 6px rgba(255,255,255,0.3));
     transition: transform 0.3s ease, filter 0.3s ease;
   }
@@ -146,7 +151,7 @@
 
 <!-- HERO -->
 <header>
-  <img src="murderhewrote.png" alt="Murder He Wrote logo">
+  <img src="murderhewrote.png" alt="Murder He Wrote logo" id="heroLogo">
   <p>Producer / DJ / Broadcaster</p>
 
   <!-- Platform links -->
@@ -220,17 +225,21 @@ function initParticles() {
       size: Math.random()*2 + 1,
       speedX: (Math.random()-0.5)*0.3,
       speedY: (Math.random()-0.5)*0.3,
+      baseX: 0, // for mouse parallax
+      baseY: 0,
       opacity: Math.random()*0.3 + 0.1
     });
   }
 }
 
-function animateParticles() {
+function animateParticles(mouseX=0, mouseY=0) {
   ctx.clearRect(0,0,canvas.width,canvas.height);
   particlesArray.forEach(p=>{
+    const parallaxX = -mouseX * 0.01; // subtle opposite direction
+    const parallaxY = -mouseY * 0.01;
     ctx.fillStyle=`rgba(255,255,255,${p.opacity})`;
     ctx.beginPath();
-    ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
+    ctx.arc(p.x + parallaxX, p.y + parallaxY, p.size, 0, Math.PI*2);
     ctx.fill();
     p.x += p.speedX;
     p.y += p.speedY;
@@ -239,12 +248,23 @@ function animateParticles() {
     if(p.y<0)p.y=canvas.height;
     if(p.y>canvas.height)p.y=0;
   });
-  requestAnimationFrame(animateParticles);
+  requestAnimationFrame(()=>animateParticles(mouseX, mouseY));
 }
+
+let mouseX = 0;
+let mouseY = 0;
+document.addEventListener('mousemove', e => {
+  mouseX = e.clientX - window.innerWidth/2;
+  mouseY = e.clientY - window.innerHeight/2;
+  // Logo subtle parallax
+  const heroLogo = document.getElementById('heroLogo');
+  heroLogo.style.transform = `translate(${mouseX/100}px, ${mouseY/100}px) scale(1.03)`;
+});
 
 window.addEventListener('resize',()=>{initParticles();});
 initParticles();
-animateParticles();
+animateParticles(mouseX, mouseY);
+
 </script>
 
 </body>
