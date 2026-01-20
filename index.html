@@ -22,10 +22,7 @@
     animation: gradientMove 20s ease infinite;
   }
 
-  a {
-    color: inherit;
-    text-decoration: none;
-  }
+  a { color: inherit; text-decoration: none; }
 
   /* --- Background noise / vignette --- */
   body::before {
@@ -78,22 +75,25 @@
     animation: textFadeIn 1s forwards 1s;
   }
 
-  @keyframes logoFadeIn {
-    to {opacity:1; transform: scale(1);}
-  }
-  @keyframes logoPulse {
-    0% {transform: scale(1);}
-    50% {transform: scale(1.03);}
-    100% {transform: scale(1);}
-  }
-  @keyframes textFadeIn {
-    to {opacity:1;}
+  @keyframes logoFadeIn { to {opacity:1; transform: scale(1);} }
+  @keyframes logoPulse { 0% {transform: scale(1);} 50% {transform: scale(1.03);} 100% {transform: scale(1);} }
+  @keyframes textFadeIn { to {opacity:1;} }
+
+  /* --- Particle canvas --- */
+  #particleCanvas {
+    position: fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    pointer-events: none;
+    z-index:1;
   }
 
-  /* --- Platforms cards --- */
+  /* --- Platforms cards / logos --- */
   .platforms {
     display: flex;
-    gap: 2rem;
+    gap: 2.5rem;
     justify-content: center;
     flex-wrap: wrap;
     margin-top: 3rem;
@@ -101,28 +101,26 @@
 
   .platforms a {
     display: block;
-    background: rgba(255,255,255,0.05);
-    border-radius: 12px;
-    padding: 1rem 1.5rem;
+    padding: 0.5rem;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     opacity: 0;
     transform: translateY(20px);
   }
 
   .platforms a img {
-    height: 42px;
+    height: 50px; /* slightly larger */
     display: block;
+    /* keep original colors, add soft glow */
+    filter: drop-shadow(0 2px 6px rgba(255,255,255,0.3));
+    transition: transform 0.3s ease, filter 0.3s ease;
   }
 
-  .platforms a:hover {
-    transform: translateY(-6px) scale(1.05);
-    box-shadow: 0 8px 20px rgba(255,255,255,0.1);
+  .platforms a:hover img {
+    transform: scale(1.1);
+    filter: drop-shadow(0 4px 12px rgba(255,255,255,0.5));
   }
 
-  .platforms.visible a {
-    opacity:1;
-    transform: translateY(0);
-  }
+  .platforms.visible a { opacity:1; transform: translateY(0); }
 
   /* --- Bio section --- */
   section.bio {
@@ -135,89 +133,119 @@
     transition: all 0.8s ease-out;
   }
 
-  section.bio.visible {
-    opacity:1;
-    transform: translateY(0);
-  }
+  section.bio.visible { opacity:1; transform: translateY(0); }
 
-  footer {
-    text-align: center;
-    padding: 2rem 1rem;
-    color: #888;
-  }
+  footer { text-align:center; padding:2rem 1rem; color:#888; }
 
-  @media (prefers-reduced-motion: reduce) {
-    * {animation:none !important; transition:none !important;}
-  }
+  @media (prefers-reduced-motion: reduce) { * {animation:none !important; transition:none !important;} }
 </style>
 </head>
 <body>
 
-  <!-- HERO -->
-  <header>
-    <img src="murderhewrote.png" alt="Murder He Wrote logo">
-    <p>Producer / DJ / Broadcaster</p>
+<canvas id="particleCanvas"></canvas>
 
-    <!-- Platform links -->
-    <div class="platforms">
-      <a href="https://soundcloud.com/murder-he-wrote" target="_blank" aria-label="SoundCloud">
-        <img src="soundcloud.png" alt="SoundCloud">
-      </a>
-      <a href="https://murderhewrote.bandcamp.com/" target="_blank" aria-label="Bandcamp">
-        <img src="bandcamp.png" alt="Bandcamp">
-      </a>
-      <a href="https://open.spotify.com/artist/4n11sJzNp7JjBQw9sDze9Z" target="_blank" aria-label="Spotify">
-        <img src="spotify.png" alt="Spotify">
-      </a>
-      <a href="https://music.apple.com/gb/artist/murder-he-wrote/545837724" target="_blank" aria-label="Apple Music">
-        <img src="applemusic.png" alt="Apple Music">
-      </a>
-    </div>
-  </header>
+<!-- HERO -->
+<header>
+  <img src="murderhewrote.png" alt="Murder He Wrote logo">
+  <p>Producer / DJ / Broadcaster</p>
 
-  <!-- BIO -->
-  <section class="bio">
-    <p>
-      Blending Garage, UK Funky, and Broken Beat, Murder He Wrote’s playful productions and edits have become a mainstay of clubs worldwide. Breaking out via Roska Kicks & Snares, his tracks have gained support from tastemakers including Ben UFO, Jyoty, Fred Again, Jamz Supernova, and Mary Anne Hobbs.
-    </p>
-    <p>
-      Working across 3 decks, his low-end focused DJ sets have featured on BBC Radio 1, Boiler Room, NTS, Rinse FM, and clubs/festivals around the world including Fabric, Ministry Of Sound, and Outlook.
-    </p>
-    <p>
-      Recent highlights include releases on DJ Zinc’s Bingo Beats and Jamz Supernova’s Future Bounce, collaborations with Roska, official remixes for Afro B and T-Pain, and multiple Spotify New Music Friday features.
-    </p>
-  </section>
+  <!-- Platform links -->
+  <div class="platforms">
+    <a href="https://soundcloud.com/murder-he-wrote" target="_blank" aria-label="SoundCloud">
+      <img src="soundcloud.png" alt="SoundCloud">
+    </a>
+    <a href="https://murderhewrote.bandcamp.com/" target="_blank" aria-label="Bandcamp">
+      <img src="bandcamp.png" alt="Bandcamp">
+    </a>
+    <a href="https://open.spotify.com/artist/4n11sJzNp7JjBQw9sDze9Z" target="_blank" aria-label="Spotify">
+      <img src="spotify.png" alt="Spotify">
+    </a>
+    <a href="https://music.apple.com/gb/artist/murder-he-wrote/545837724" target="_blank" aria-label="Apple Music">
+      <img src="applemusic.png" alt="Apple Music">
+    </a>
+  </div>
+</header>
 
-  <!-- CONTACT -->
-  <section>
-    <p style="text-align:center;">
-      <a href="mailto:team@rhythmathletic.com">team@rhythmathletic.com</a>
-    </p>
-  </section>
+<!-- BIO -->
+<section class="bio">
+  <p>
+    Blending Garage, UK Funky, and Broken Beat, Murder He Wrote’s playful productions and edits have become a mainstay of clubs worldwide. Breaking out via Roska Kicks & Snares, his tracks have gained support from tastemakers including Ben UFO, Jyoty, Fred Again, Jamz Supernova, and Mary Anne Hobbs.
+  </p>
+  <p>
+    Working across 3 decks, his low-end focused DJ sets have featured on BBC Radio 1, Boiler Room, NTS, Rinse FM, and clubs/festivals around the world including Fabric, Ministry Of Sound, and Outlook.
+  </p>
+  <p>
+    Recent highlights include releases on DJ Zinc’s Bingo Beats and Jamz Supernova’s Future Bounce, collaborations with Roska, official remixes for Afro B and T-Pain, and multiple Spotify New Music Friday features.
+  </p>
+</section>
 
-  <footer>
-    © <span id="year"></span> Murder He Wrote
-  </footer>
+<!-- CONTACT -->
+<section>
+  <p style="text-align:center;">
+    <a href="mailto:team@rhythmathletic.com">team@rhythmathletic.com</a>
+  </p>
+</section>
 
-  <script>
-    // Set current year
-    document.getElementById("year").textContent = new Date().getFullYear();
+<footer>© <span id="year"></span> Murder He Wrote</footer>
 
-    // Animate platforms on scroll
-    const platforms = document.querySelector('.platforms');
-    const bio = document.querySelector('.bio');
+<script>
+document.getElementById("year").textContent = new Date().getFullYear();
 
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if(entry.isIntersecting){
-          entry.target.classList.add('visible');
-        }
-      });
-    }, {threshold:0.3});
+// Animate platforms and bio on scroll
+const platforms = document.querySelector('.platforms');
+const bio = document.querySelector('.bio');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){ entry.target.classList.add('visible'); }
+  });
+},{threshold:0.3});
+observer.observe(platforms);
+observer.observe(bio);
 
-    observer.observe(platforms);
-    observer.observe(bio);
-  </script>
+// --- Particle animation ---
+const canvas = document.getElementById('particleCanvas');
+const ctx = canvas.getContext('2d');
+let particlesArray;
+
+function initParticles() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  particlesArray = [];
+  const numParticles = Math.floor((canvas.width * canvas.height) / 8000);
+
+  for (let i = 0; i < numParticles; i++) {
+    particlesArray.push({
+      x: Math.random()*canvas.width,
+      y: Math.random()*canvas.height,
+      size: Math.random()*2 + 1,
+      speedX: (Math.random()-0.5)*0.3,
+      speedY: (Math.random()-0.5)*0.3,
+      opacity: Math.random()*0.3 + 0.1
+    });
+  }
+}
+
+function animateParticles() {
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  particlesArray.forEach(p=>{
+    ctx.fillStyle=`rgba(255,255,255,${p.opacity})`;
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
+    ctx.fill();
+    p.x += p.speedX;
+    p.y += p.speedY;
+    if(p.x<0)p.x=canvas.width;
+    if(p.x>canvas.width)p.x=0;
+    if(p.y<0)p.y=canvas.height;
+    if(p.y>canvas.height)p.y=0;
+  });
+  requestAnimationFrame(animateParticles);
+}
+
+window.addEventListener('resize',()=>{initParticles();});
+initParticles();
+animateParticles();
+</script>
 
 </body>
 </html>
