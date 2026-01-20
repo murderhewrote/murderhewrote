@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Murder He Wrote</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta name="description" content="Murder He Wrote — DJ / Producer">
+
+  <!-- Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* --- Base styles --- */
+
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: #0a0a0a;
+      color: #eaeaea;
+      line-height: 1.6;
+      animation: fadeIn 0.8s ease-out forwards;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    header {
+      min-height: 80vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: riseIn 0.8s ease-out forwards;
+      animation-delay: 0.1s;
+    }
+
+    h1 {
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      letter-spacing: 0.08em;
+      margin: 0;
+      opacity: 0;
+      animation: textIn 1s ease-out forwards;
+      animation-delay: 0.15s;
+    }
+
+    header p {
+      margin-top: 0.5rem;
+      color: #aaa;
+    }
+
+    section {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 4rem 1.5rem;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: riseIn 0.8s ease-out forwards;
+    }
+
+    section:nth-of-type(1) { animation-delay: 0.25s; }
+    section:nth-of-type(2) { animation-delay: 0.4s; }
+    section:nth-of-type(3) { animation-delay: 0.55s; }
+
+    h2 {
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      margin-bottom: 2rem;
+      text-align: center;
+      color: #999;
+    }
+
+    .platforms {
+      display: flex;
+      gap: 2.5rem;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .platforms img {
+      height: 42px;
+      opacity: 0.7;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    .platforms img:hover {
+      opacity: 1;
+      transform: translateY(-3px);
+    }
+
+    .bio {
+      max-width: 600px;
+      margin: 0 auto;
+      text-align: center;
+      line-height: 1.7;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.85rem;
+      color: #666;
+    }
+
+    /* --- Animations --- */
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes riseIn {
+      from {
+        opacity: 0;
+        transform: translateY(24px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes textIn {
+      from {
+        opacity: 0;
+        letter-spacing: 0.2em;
+      }
+      to {
+        opacity: 1;
+        letter-spacing: 0.08em;
+      }
+    }
+
+    /* --- Respect reduced motion --- */
+
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+
+    /* --- Background grain / noise --- */
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9999;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    }
+
+    /* --- Subtle vignette --- */
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 10000;
+      background: radial-gradient(
+        ellipse at center,
+        rgba(0,0,0,0) 55%,
+        rgba(0,0,0,0.35) 100%
+      );
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- HERO -->
+  <header>
+    <div>
+      <h1>MURDER HE WROTE</h1>
+      <p>DJ / Producer</p>
+    </div>
+  </header>
+
+  <!-- LISTEN -->
+  <section>
+    <h2>Listen</h2>
+
+    <div class="platforms">
+      <a href="https://soundcloud.com/murder-he-wrote" target="_blank" aria-label="SoundCloud">
+        <img src="soundcloud.png" alt="SoundCloud">
+      </a>
+
+      <a href="https://murderhewrote.bandcamp.com/" target="_blank" aria-label="Bandcamp">
+        <img src="bandcamp.png" alt="Bandcamp">
+      </a>
+
+      <a href="https://open.spotify.com/artist/4n11sJzNp7JjBQw9sDze9Z" target="_blank" aria-label="Spotify">
+        <img src="spotify.png" alt="Spotify">
+      </a>
+
+      <a href="https://music.apple.com/gb/artist/murder-he-wrote/545837724" target="_blank" aria-label="Apple Music">
+        <img src="applemusic.png" alt="Apple Music">
+      </a>
+    </div>
+  </section>
+
+  <!-- BIO -->
+  <section>
+    <h2>Bio</h2>
+    <div class="bio">
+      <p>
+        Murder He Wrote is a DJ and producer working across dark, forward-moving
+        club music and underground sounds.
+      </p>
+      <p>
+        Available for bookings and collaborations.
+      </p>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section>
+    <h2>Contact</h2>
+    <p style="text-align:center;">
+      <a href="mailto:booking@murderhewrote.co.uk">
+        booking@murderhewrote.co.uk
+      </a>
+    </p>
+  </section>
+
+  <footer>
+    © <span id="year"></span> Murder He Wrote
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+
+</body>
+</html>
+
+
