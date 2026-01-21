@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <title>Murder He Wrote</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
 <meta name="description" content="Murder He Wrote">
 <meta property="og:title" content="Murder He Wrote">
 <meta property="og:url" content="https://murderhewrote.co.uk">
@@ -12,9 +11,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
   margin: 0;
@@ -59,6 +56,7 @@ header img {
   animation:
     logoFadeIn 1.2s forwards,
     logoPulse 3s ease-in-out infinite alternate 1.2s;
+  filter: invert(1); /* fully inverted logo */
 }
 
 @keyframes logoFadeIn {
@@ -110,7 +108,7 @@ header img {
   filter: drop-shadow(0 8px 20px rgba(255,255,255,0.6));
 }
 
-/* Resident Advisor tweak (Option A) */
+/* Resident Advisor tweak */
 .platforms a.ra img {
   filter: invert(1) drop-shadow(0 2px 6px rgba(255,255,255,0.35));
   height: 56px;
@@ -145,14 +143,14 @@ footer a {
   <a href="https://murderhewrote.bandcamp.com/" target="_blank">
     <img src="bandcamp.png" alt="Bandcamp">
   </a>
+  <a href="https://www.instagram.com/murder_he_wrote" target="_blank">
+    <img src="instagram.png" alt="Instagram">
+  </a>
   <a href="https://ra.co/dj/murderhewrote" target="_blank" class="ra">
     <img src="resident.png" alt="Resident Advisor">
   </a>
   <a href="https://open.spotify.com/artist/4n11sJzNp7JjBQw9sDze9Z" target="_blank">
     <img src="spotify.png" alt="Spotify">
-  </a>
-  <a href="https://www.instagram.com/" target="_blank">
-    <img src="instagram.png" alt="Instagram">
   </a>
   <a href="https://soundcloud.com/murder-he-wrote" target="_blank">
     <img src="soundcloud.png" alt="SoundCloud">
