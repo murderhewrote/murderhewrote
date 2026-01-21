@@ -4,269 +4,285 @@
 <meta charset="UTF-8">
 <title>Murder He Wrote</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Murder He Wrote — Producer / DJ / Broadcaster">
+
+<meta name="description" content="Murder He Wrote — electronic music, radio and live performances.">
+<meta property="og:title" content="Murder He Wrote">
+<meta property="og:description" content="Music, radio & live performances.">
+<meta property="og:url" content="https://murderhewrote.co.uk">
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
-  /* --- Base styles --- */
-  body, html {
-    margin: 0;
-    padding: 0;
-    font-family: 'Inter', sans-serif;
-    color: #f2f2f2;
-    height: 100%;
-    overflow-x: hidden;
-    background: linear-gradient(-45deg, #0a0a0a, #111111, #0a0a0a, #111111);
-    background-size: 400% 400%;
-    animation: gradientMove 20s ease infinite;
-  }
+* {
+  box-sizing: border-box;
+}
 
-  a { color: inherit; text-decoration: none; }
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  color: #f2f2f2;
+  background:
+    radial-gradient(circle at center, rgba(255,255,255,0.06), rgba(0,0,0,0.85) 70%),
+    linear-gradient(120deg, #0a0a0a, #0f0f0f, #090909);
+  overflow-x: hidden;
+}
 
-  /* --- Background noise / vignette --- */
-  body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
-  }
-  body::after {
-    content:"";
-    position: fixed;
-    inset:0;
-    pointer-events:none;
-    background: radial-gradient(ellipse at center, rgba(0,0,0,0) 35%, rgba(0,0,0,0.55) 100%);
-  }
+/* Grain */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4'/ %3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1;
+}
 
-  @keyframes gradientMove {
-    0% {background-position:0% 50%;}
-    50% {background-position:100% 50%;}
-    100% {background-position:0% 50%;}
-  }
+canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+}
 
-  /* --- Hero / logo --- */
-  header {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    position: relative;
-    z-index: 2;
-    overflow: hidden;
-  }
+main {
+  position: relative;
+  z-index: 2;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 5rem 1.5rem 4rem;
+  text-align: center;
+}
 
-  header img {
-    filter: invert(100%) brightness(1.1) contrast(1.2);
-    max-width: 500px;
-    width: 80%;
-    opacity: 0;
-    transform: scale(0.95);
-    animation: logoFadeIn 1s forwards, logoPulse 3s ease-in-out infinite alternate 1s;
-    position: relative;
-    z-index: 2;
-  }
+/* Logo */
+header img {
+  width: 320px;
+  max-width: 80vw;
+  opacity: 0;
+  animation:
+    logoFadeIn 1.2s forwards,
+    logoPulse 3s ease-in-out infinite alternate 1.2s;
+}
 
-  header p {
-    margin-top: 0.5rem;
-    font-weight: 400;
-    color: #aaa;
-    opacity: 0;
-    animation: textFadeIn 1s forwards 1s;
-  }
+@keyframes logoFadeIn {
+  to { opacity: 1; }
+}
 
-  @keyframes logoFadeIn { to {opacity:1; transform: scale(1);} }
-  @keyframes logoPulse { 0% {transform: scale(1);} 50% {transform: scale(1.015);} 100% {transform: scale(1);} }
-  @keyframes textFadeIn { to {opacity:1;} }
+@keyframes logoPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.015); }
+  100% { transform: scale(1); }
+}
 
-  /* --- Particle canvas --- */
-  #particleCanvas {
-    position: fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    pointer-events: none;
-    z-index:1;
-  }
+/* Bio */
+.bio {
+  max-width: 700px;
+  margin: 2.5rem auto 3.5rem;
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: #d6d6d6;
+}
 
-  /* --- Platforms cards / logos --- */
-  .platforms {
-    display: flex;
-    gap: 3rem;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-top: 2rem;
-    z-index: 2;
-    position: relative;
-  }
+/* Platforms */
+.platforms {
+  display: flex;
+  justify-content: center;
+  gap: 2.2rem;
+  flex-wrap: wrap;
+  margin-bottom: 4rem;
+}
 
-  .platforms a {
-    display: block;
-    padding: 0.5rem;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: transform 0.4s ease, box-shadow 0.4s ease, opacity 0.4s ease;
-  }
+.platforms a {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
 
-  /* Staggered animation using nth-child */
-  .platforms.visible a {
-    opacity: 1;
-    transform: translateY(0);
-  }
-/* Staggered animation for new logo order */
-.platforms a:nth-child(1) { transition-delay: 0.1s; }  /* Bandcamp */
-.platforms a:nth-child(2) { transition-delay: 0.25s; } /* Spotify */
-.platforms a:nth-child(3) { transition-delay: 0.4s; }  /* Instagram */
-.platforms a:nth-child(4) { transition-delay: 0.55s; } /* SoundCloud */
-.platforms a:nth-child(5) { transition-delay: 0.7s; }  /* Apple Music */
+.platforms.visible a {
+  opacity: 1;
+  transform: translateY(0);
+}
 
+.platforms a:nth-child(1){transition-delay:0.1s;}
+.platforms a:nth-child(2){transition-delay:0.25s;}
+.platforms a:nth-child(3){transition-delay:0.4s;}
+.platforms a:nth-child(4){transition-delay:0.55s;}
+.platforms a:nth-child(5){transition-delay:0.7s;}
 
-  .platforms a img {
-    height: 72px; /* slightly larger logos */
-    width: auto;
-    display: block;
-    filter: drop-shadow(0 2px 6px rgba(255,255,255,0.3));
-    transition: transform 0.4s ease, filter 0.4s ease, box-shadow 0.4s ease;
-  }
+.platforms img {
+  height: 60px;
+  width: auto;
+  display: block;
+  filter: drop-shadow(0 2px 6px rgba(255,255,255,0.35));
+  transition: transform 0.4s ease, filter 0.4s ease;
+}
 
-  .platforms a:hover img {
-    transform: scale(1.15) rotate(-2deg);
-    filter: drop-shadow(0 6px 18px rgba(255,255,255,0.5));
-    box-shadow: 0 0 20px rgba(255,255,255,0.15);
-  }
+.platforms a:hover img {
+  transform: scale(1.15) rotate(-2deg);
+  filter: drop-shadow(0 8px 20px rgba(255,255,255,0.6));
+}
 
-  /* --- Bio section --- */
-  section.bio {
-    max-width: 700px;
-    margin: 4rem auto;
-    text-align: center;
-    line-height: 1.7;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.8s ease-out;
-  }
+/* Invert RA logo */
+.platforms a.ra img {
+  filter: invert(1) drop-shadow(0 2px 6px rgba(255,255,255,0.35));
+}
 
-  section.bio.visible { opacity:1; transform: translateY(0); }
+/* Explore section */
+.explore {
+  margin: 4.5rem auto 3rem;
+}
 
-  footer { text-align:center; padding:2rem 1rem; color:#888; }
+.explore h2 {
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #888;
+  margin-bottom: 2rem;
+}
 
-  @media (prefers-reduced-motion: reduce) { * {animation:none !important; transition:none !important;} }
+.explore-cards {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.explore-card {
+  width: 240px;
+  padding: 2.2rem;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 14px;
+  backdrop-filter: blur(4px);
+  transition: transform 0.4s ease, box-shadow 0.4s ease, background 0.4s ease;
+}
+
+.explore-card:hover {
+  transform: translateY(-6px) scale(1.03);
+  background: rgba(255,255,255,0.07);
+  box-shadow: 0 12px 30px rgba(255,255,255,0.08);
+}
+
+.explore-card .title {
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 0.6rem;
+}
+
+.explore-card .desc {
+  font-size: 0.85rem;
+  color: #aaa;
+}
+
+/* Footer */
+footer {
+  margin-top: 4rem;
+  font-size: 0.8rem;
+  color: #777;
+}
+
+footer a {
+  color: #aaa;
+  text-decoration: none;
+}
 </style>
 </head>
+
 <body>
 
-<canvas id="particleCanvas"></canvas>
+<canvas id="particles"></canvas>
 
-<!-- HERO -->
+<main>
+
 <header>
-  <img src="murderhewrote.png" alt="Murder He Wrote logo" id="heroLogo">
-  <p>Producer / DJ / Broadcaster</p>
-
-  <!-- Platform links -->
-<div class="platforms">
-  <a href="https://murderhewrote.bandcamp.com/" target="_blank" aria-label="Bandcamp">
-    <img src="bandcamp.png" alt="Bandcamp">
-  </a>
-  <a href="https://open.spotify.com/artist/4n11sJzNp7JjBQw9sDze9Z" target="_blank" aria-label="Spotify">
-    <img src="spotify.png" alt="Spotify">
-  </a>
-  <a href="https://www.instagram.com/murder_he_wrote/" target="_blank" aria-label="Instagram">
-    <img src="instagram.png" alt="Instagram">
-  </a>
-  <a href="https://soundcloud.com/murder-he-wrote" target="_blank" aria-label="SoundCloud">
-    <img src="soundcloud.png" alt="SoundCloud">
-  </a>
-  <a href="https://music.apple.com/gb/artist/murder-he-wrote/545837724" target="_blank" aria-label="Apple Music">
-    <img src="applemusic.png" alt="Apple Music">
-  </a>
-</div>
-
+  <img src="murderhewrote.png" alt="Murder He Wrote logo">
 </header>
 
-<!-- BIO -->
 <section class="bio">
-  <p>
-    Blending Garage, UK Funky, and Broken Beat, Murder He Wrote’s playful productions and edits have become a mainstay of clubs worldwide. Breaking out via Roska Kicks & Snares, his tracks have gained support from tastemakers including Ben UFO, Jyoty, Fred Again, Jamz Supernova, and Mary Anne Hobbs.
-  </p>
-  <p>
-    Working across 3 decks, his low-end focused DJ sets have featured on BBC Radio 1, Boiler Room, NTS, Rinse FM, and clubs/festivals around the world including Fabric, Ministry Of Sound, and Outlook.
-  </p>
-  <p>
-    Recent highlights include releases on DJ Zinc’s Bingo Beats and Jamz Supernova’s Future Bounce, collaborations with Roska, official remixes for Afro B and T-Pain, and multiple Spotify New Music Friday features.
-  </p>
+  Blending elements of Garage, UK Funky and Broken Beat into his own off-kilter take on club music, Murder He Wrote’s playful productions and edits have become a mainstay of clubs worldwide. Originally breaking out via releases on Roska Kicks & Snares, his tracks have gained support from Ben UFO, Jyoty, Fred Again, Jamz Supernova and Mary Anne Hobbs.
 </section>
 
-<!-- CONTACT -->
-<section>
-  <p style="text-align:center;">
-    <a href="mailto:team@rhythmathletic.com">team@rhythmathletic.com</a>
-  </p>
+<section class="platforms">
+  <a href="https://murderhewrote.bandcamp.com/" target="_blank"><img src="bandcamp.png" alt="Bandcamp"></a>
+  <a href="https://ra.co/dj/murderhewrote" target="_blank" class="ra"><img src="resident.png" alt="Resident Advisor"></a>
+  <a href="https://open.spotify.com/artist/4n11sJzNp7JjBQw9sDze9Z" target="_blank"><img src="spotify.png" alt="Spotify"></a>
+  <a href="https://www.instagram.com/" target="_blank"><img src="instagram.png" alt="Instagram"></a>
+  <a href="https://soundcloud.com/murder-he-wrote" target="_blank"><img src="soundcloud.png" alt="SoundCloud"></a>
 </section>
 
-<footer>© <span id="year"></span> Murder He Wrote</footer>
+<section class="explore">
+  <h2>Explore</h2>
+  <div class="explore-cards">
+    <a href="production.html" class="explore-card">
+      <span class="title">Production</span>
+      <span class="desc">Releases & collaborations</span>
+    </a>
+    <a href="radio.html" class="explore-card">
+      <span class="title">Radio</span>
+      <span class="desc">Shows & broadcasts</span>
+    </a>
+    <a href="live.html" class="explore-card">
+      <span class="title">Live</span>
+      <span class="desc">Clubs & festivals</span>
+    </a>
+  </div>
+</section>
+
+<footer>
+  Bookings: <a href="mailto:team@rhythmathletic.com">team@rhythmathletic.com</a>
+</footer>
+
+</main>
 
 <script>
-document.getElementById("year").textContent = new Date().getFullYear();
-
-// Animate platforms and bio on scroll
+/* Platform reveal */
 const platforms = document.querySelector('.platforms');
-const bio = document.querySelector('.bio');
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if(entry.isIntersecting){ entry.target.classList.add('visible'); }
-  });
-},{threshold:0.3});
-observer.observe(platforms);
-observer.observe(bio);
+new IntersectionObserver(e=>{
+  if(e[0].isIntersecting) platforms.classList.add('visible');
+},{threshold:0.3}).observe(platforms);
 
-// --- Particle animation with subtle glow/trail ---
-const canvas = document.getElementById('particleCanvas');
+/* Particles */
+const canvas = document.getElementById('particles');
 const ctx = canvas.getContext('2d');
-let particlesArray;
+let particles=[];
 
-function initParticles() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-  particlesArray = [];
-  const numParticles = Math.floor((canvas.width * canvas.height) / 7000);
-  for (let i = 0; i < numParticles; i++) {
-    particlesArray.push({
-      x: Math.random()*canvas.width,
-      y: Math.random()*canvas.height,
-      size: Math.random()*2 + 1,
-      speedX: (Math.random()-0.5)*0.3,
-      speedY: (Math.random()-0.5)*0.3,
-      opacity: Math.random()*0.3 + 0.1
+function resize(){
+  canvas.width=innerWidth;
+  canvas.height=innerHeight;
+  particles=[];
+  const count=(canvas.width*canvas.height)/9000;
+  for(let i=0;i<count;i++){
+    particles.push({
+      x:Math.random()*canvas.width,
+      y:Math.random()*canvas.height,
+      r:Math.random()*1.5+0.5,
+      vx:(Math.random()-0.5)*0.25,
+      vy:(Math.random()-0.5)*0.25,
+      o:Math.random()*0.3+0.1
     });
   }
 }
+window.addEventListener('resize',resize);
+resize();
 
-function animateParticles() {
+function animate(){
   ctx.clearRect(0,0,canvas.width,canvas.height);
-  particlesArray.forEach(p=>{
-    ctx.fillStyle = `rgba(255,255,255,${p.opacity})`;
-    ctx.shadowColor = "rgba(255,255,255,0.3)";
-    ctx.shadowBlur = 4;
+  particles.forEach(p=>{
+    ctx.fillStyle=`rgba(255,255,255,${p.o})`;
+    ctx.shadowBlur=6;
+    ctx.shadowColor='rgba(255,255,255,0.3)';
     ctx.beginPath();
-    ctx.arc(p.x, p.y, p.size, 0, Math.PI*2);
+    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
     ctx.fill();
-    p.x += p.speedX;
-    p.y += p.speedY;
+    p.x+=p.vx;
+    p.y+=p.vy;
     if(p.x<0)p.x=canvas.width;
     if(p.x>canvas.width)p.x=0;
     if(p.y<0)p.y=canvas.height;
     if(p.y>canvas.height)p.y=0;
   });
-  requestAnimationFrame(animateParticles);
+  requestAnimationFrame(animate);
 }
-
-window.addEventListener('resize', ()=>{initParticles();});
-initParticles();
-animateParticles();
+animate();
 </script>
 
 </body>
