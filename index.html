@@ -23,7 +23,7 @@ body {
   overflow-x: hidden;
 }
 
-/* Grain */
+/* Grain overlay */
 body::after {
   content: "";
   position: fixed;
@@ -56,7 +56,7 @@ header img {
   animation:
     logoFadeIn 1.2s forwards,
     logoPulse 3s ease-in-out infinite alternate 1.2s;
-  filter: invert(1); /* fully inverted logo */
+  filter: invert(1); /* fully inverted */
 }
 
 @keyframes logoFadeIn {
@@ -108,11 +108,17 @@ header img {
   filter: drop-shadow(0 8px 20px rgba(255,255,255,0.6));
 }
 
-/* Resident Advisor tweak */
+/* Resident Advisor tweak - keep width squash and enable hover animation */
 .platforms a.ra img {
   filter: invert(1) drop-shadow(0 2px 6px rgba(255,255,255,0.35));
   height: 56px;
-  transform: scaleX(0.92);
+  transform: scaleX(0.92) scale(1);
+  transition: transform 0.4s ease, filter 0.4s ease;
+}
+
+.platforms a.ra:hover img {
+  transform: scaleX(0.92) scale(1.15) rotate(-2deg);
+  filter: drop-shadow(0 8px 20px rgba(255,255,255,0.6));
 }
 
 /* Footer */
@@ -143,11 +149,11 @@ footer a {
   <a href="https://murderhewrote.bandcamp.com/" target="_blank">
     <img src="bandcamp.png" alt="Bandcamp">
   </a>
-  <a href="https://www.instagram.com/murder_he_wrote" target="_blank">
-    <img src="instagram.png" alt="Instagram">
-  </a>
   <a href="https://ra.co/dj/murderhewrote" target="_blank" class="ra">
     <img src="resident.png" alt="Resident Advisor">
+  </a>
+  <a href="https://www.instagram.com/murder_he_wrote" target="_blank">
+    <img src="instagram.png" alt="Instagram">
   </a>
   <a href="https://open.spotify.com/artist/4n11sJzNp7JjBQw9sDze9Z" target="_blank">
     <img src="spotify.png" alt="Spotify">
