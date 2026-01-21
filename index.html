@@ -5,9 +5,8 @@
 <title>Murder He Wrote</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<meta name="description" content="Murder He Wrote — electronic music, radio and live performances.">
+<meta name="description" content="Murder He Wrote">
 <meta property="og:title" content="Murder He Wrote">
-<meta property="og:description" content="Music, radio & live performances.">
 <meta property="og:url" content="https://murderhewrote.co.uk">
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
@@ -48,14 +47,14 @@ main {
   z-index: 2;
   max-width: 960px;
   margin: 0 auto;
-  padding: 6rem 1.5rem 4rem;
+  padding: 7rem 1.5rem 4.5rem;
   text-align: center;
 }
 
 /* Logo */
 header img {
-  width: 340px;
-  max-width: 82vw;
+  width: 360px;
+  max-width: 85vw;
   opacity: 0;
   animation:
     logoFadeIn 1.2s forwards,
@@ -76,9 +75,9 @@ header img {
 .platforms {
   display: flex;
   justify-content: center;
-  gap: 2.4rem;
+  gap: 2.6rem;
   flex-wrap: wrap;
-  margin: 3.5rem 0 4.5rem;
+  margin: 4rem 0 4.5rem;
 }
 
 .platforms a {
@@ -111,63 +110,17 @@ header img {
   filter: drop-shadow(0 8px 20px rgba(255,255,255,0.6));
 }
 
-/* Invert RA logo */
+/* Resident Advisor tweak (Option A) */
 .platforms a.ra img {
   filter: invert(1) drop-shadow(0 2px 6px rgba(255,255,255,0.35));
-}
-
-/* Explore */
-.explore {
-  margin: 3.5rem auto 3rem;
-}
-
-.explore h2 {
-  font-size: 0.75rem;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: #888;
-  margin-bottom: 2rem;
-}
-
-.explore-cards {
-  display: flex;
-  gap: 2rem;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.explore-card {
-  width: 240px;
-  padding: 2.2rem;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.06);
-  border-radius: 14px;
-  backdrop-filter: blur(4px);
-  transition: transform 0.4s ease, box-shadow 0.4s ease, background 0.4s ease;
-}
-
-.explore-card:hover {
-  transform: translateY(-6px) scale(1.03);
-  background: rgba(255,255,255,0.07);
-  box-shadow: 0 12px 30px rgba(255,255,255,0.08);
-}
-
-.explore-card .title {
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  margin-bottom: 0.6rem;
-}
-
-.explore-card .desc {
-  font-size: 0.85rem;
-  color: #aaa;
+  height: 56px;
+  transform: scaleX(0.92);
 }
 
 /* Footer */
 footer {
-  margin-top: 4rem;
   font-size: 0.8rem;
+  letter-spacing: 0.08em;
   color: #777;
 }
 
@@ -204,24 +157,6 @@ footer a {
   <a href="https://soundcloud.com/murder-he-wrote" target="_blank">
     <img src="soundcloud.png" alt="SoundCloud">
   </a>
-</section>
-
-<section class="explore">
-  <h2>Explore</h2>
-  <div class="explore-cards">
-    <a href="production.html" class="explore-card">
-      <span class="title">Production</span>
-      <span class="desc">Releases & collaborations</span>
-    </a>
-    <a href="radio.html" class="explore-card">
-      <span class="title">Radio</span>
-      <span class="desc">Shows & broadcasts</span>
-    </a>
-    <a href="live.html" class="explore-card">
-      <span class="title">Live</span>
-      <span class="desc">Clubs & festivals</span>
-    </a>
-  </div>
 </section>
 
 <footer>
