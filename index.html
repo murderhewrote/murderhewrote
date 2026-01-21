@@ -44,7 +44,7 @@ main {
   z-index: 2;
   max-width: 960px;
   margin: 0 auto;
-  padding: 7rem 1.5rem 4.5rem;
+  padding: 5.5rem 1.5rem 4rem; /* slightly reduced top padding */
   text-align: center;
 }
 
@@ -75,7 +75,7 @@ header img {
   justify-content: center;
   gap: 2.6rem;
   flex-wrap: wrap;
-  margin: 4rem 0 4.5rem;
+  margin: 3rem 0 4rem; /* reduced top margin */
 }
 
 .platforms a {
@@ -108,7 +108,7 @@ header img {
   filter: drop-shadow(0 8px 20px rgba(255,255,255,0.6));
 }
 
-/* Resident Advisor tweak - keep width squash and enable hover animation */
+/* Resident Advisor tweak - keep width squash and enable hover animation like others */
 .platforms a.ra img {
   filter: invert(1) drop-shadow(0 2px 6px rgba(255,255,255,0.35));
   height: 56px;
@@ -118,7 +118,7 @@ header img {
 
 .platforms a.ra:hover img {
   transform: scaleX(0.92) scale(1.15) rotate(-2deg);
-  filter: drop-shadow(0 8px 20px rgba(255,255,255,0.6));
+  filter: invert(1) drop-shadow(0 8px 20px rgba(255,255,255,0.6)); /* invert preserved */
 }
 
 /* Footer */
@@ -149,11 +149,11 @@ footer a {
   <a href="https://murderhewrote.bandcamp.com/" target="_blank">
     <img src="bandcamp.png" alt="Bandcamp">
   </a>
-  <a href="https://ra.co/dj/murderhewrote" target="_blank" class="ra">
-    <img src="resident.png" alt="Resident Advisor">
-  </a>
   <a href="https://www.instagram.com/murder_he_wrote" target="_blank">
     <img src="instagram.png" alt="Instagram">
+  </a>
+  <a href="https://ra.co/dj/murderhewrote" target="_blank" class="ra">
+    <img src="resident.png" alt="Resident Advisor">
   </a>
   <a href="https://open.spotify.com/artist/4n11sJzNp7JjBQw9sDze9Z" target="_blank">
     <img src="spotify.png" alt="Spotify">
